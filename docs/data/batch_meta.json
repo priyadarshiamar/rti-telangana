@@ -1,0 +1,25 @@
+{
+  "batch_id": "tg2026q3_01",
+  "seed": 20260902,
+  "state": "Telangana",
+  "n": 250,
+  "n_legal": 75,
+  "n_plain": 175,
+  "ras": [
+    "RA1",
+    "RA2",
+    "RA3",
+    "RA4"
+  ],
+  "cap_per_stratum": 15,
+  "min_stratum_size": 5,
+  "frame_csv": "data/frame_telangana.csv",
+  "frame_sha256": "60bf1f696c2148329a58cc4013ecf132b43a309b1cd306029b335dec2877c5fc",
+  "frame_rows": 3325,
+  "strata": 57,
+  "source": "state_department_classified_FINAL.csv (Telangana rows)",
+  "templates": {
+    "plain": "plain_v3.txt",
+    "legal_salience": "legal_salience_v3.txt"
+  }
+}
