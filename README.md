@@ -4,19 +4,37 @@ Reproducible sampling, RA assignments, and a tracking dashboard for filing
 RTI applications to Telangana public authorities. This is the Telangana
 extension of the Tamil Nadu pipeline in
 [in-rolls/rti](https://github.com/in-rolls/rti) (branch
-`restructure-pipeline`), whose design it follows: a frozen frame, one seeded
-draw, randomized treatment assignment, balanced RA worklists, and a static
-GitHub Pages viewer.
+`restructure-pipeline`), whose design it follows: scrape the portal's own
+universe, freeze the frame, one seeded draw, randomized treatment
+assignment, balanced RA worklists, and a static GitHub Pages viewer.
 
 **Dashboard:** https://priyadarshiamar.github.io/rti-telangana/
 
+## The universe
+
+Like the Tamil Nadu pipeline, the frame comes from the portal itself. On
+2026-09-02 we enumerated the public-authority list served by
+[rti.telangana.gov.in](https://rti.telangana.gov.in) (its own search
+endpoint, `GET /Homepage/Home/GetDepartments?term=&page=N`, 30 names per
+page, 117 pages). The raw page responses are committed unmodified under
+`data/raw/portal_scrape_2026-09-02/`; `scripts/build_frame.py` turns them
+into `data/frame_telangana.csv` and writes `data/frame_provenance.json`.
+
+- 3,500 raw registrations (matching the portal's own "3500 public
+  authorities" counter), deduplicating to **3,401 distinct offices**.
+- Completeness was cross-checked: an independent sweep of the same endpoint
+  with a search term added zero names.
+- Office names are kept **portal-verbatim** — including the portal's own
+  typos (962 offices spell "Husbadry") — because RAs must match them
+  against the portal dropdown. District and block are joined from the
+  project's earlier `state_department` classification for the 3,317
+  offices present in both; the 84 offices onboarded since have no district
+  yet.
+
 ## The batch
 
-Batch `tg2026q3_01`, seed `20260902`, draws **250** of the **3,325**
-Telangana offices listed on the state RTI portal
-([rti.telangana.gov.in](https://rti.telangana.gov.in)). The frame comes from
-the project's `state_department` classification file (Telangana rows only);
-its SHA-256 is frozen in `out/tg2026q3_01/batch_meta.json`.
+Batch `tg2026q3_02`, seed `20260903`, draws **250** of the 3,401 offices.
+The frame's SHA-256 is frozen in `out/tg2026q3_02/batch_meta.json`.
 
 The Telangana list is flat — no department/tier tree like Tamil Nadu's —
 so stratification is by **department group**, derived from the office name
@@ -36,14 +54,19 @@ Within the draw:
 Re-running `python3 scripts/sample.py` reproduces the batch byte-for-byte.
 A new wave means a new `batch_id` **and** a new seed.
 
+An earlier batch `tg2026q3_01` (seed 20260902) was drawn from the older
+classification file before the portal scrape existed. No application from
+it was ever filed; it is superseded by `tg2026q3_02` and survives only in
+git history.
+
 ## What RAs do
 
-1. Open the dashboard, download your worklist (`out/tg2026q3_01/worklists/`).
+1. Open the dashboard, download your worklist (`out/tg2026q3_02/worklists/`).
 2. File each row on [rti.telangana.gov.in](https://rti.telangana.gov.in),
    choosing the row's `office_name` in the portal's Public Authority
-   dropdown.
+   dropdown (the portal is reachable only from India).
 3. Paste the letter matching the row's `treatment` from
-   `out/tg2026q3_01/templates/` (fill only the `[FILER ...]` placeholders;
+   `out/tg2026q3_02/templates/` (fill only the `[FILER ...]` placeholders;
    filer details are private and never committed here).
 4. Record every attempt in the filing form — including offices that could
    not be filed to. The "could not file" rows preserve the denominator.
@@ -51,11 +74,14 @@ A new wave means a new `batch_id` **and** a new seed.
 ## Repository layout
 
 ```
-config/batch.yaml        frozen batch design
-data/frame_telangana.csv the 3,325-office Telangana frame
-scripts/sample.py        the seeded draw (stdlib only, no dependencies)
-out/tg2026q3_01/         assignments.csv, batch_meta.json, worklists/, templates/
-docs/                    the GitHub Pages dashboard (copies of the above)
+config/batch.yaml         frozen batch design
+data/raw/                 portal scrape pages + legacy district file, never modified
+data/frame_telangana.csv  the 3,401-office frame (generated)
+data/frame_provenance.json how the frame was built
+scripts/build_frame.py    raw scrape -> frame
+scripts/sample.py         the seeded draw (stdlib only, no dependencies)
+out/tg2026q3_02/          assignments.csv, batch_meta.json, worklists/, templates/
+docs/                     the GitHub Pages dashboard (copies of the above)
 ```
 
 ## Privacy

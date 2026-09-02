@@ -1,8 +1,8 @@
 # Frozen Telangana initial-batch design. Mirrors in-rolls/rti b2026q3_02,
 # adapted to a flat (untiered) frame. Changing anything here means a new
 # batch_id AND a new seed — never edit a batch that has been drawn.
-batch_id: tg2026q3_01
-seed: 20260902
+batch_id: tg2026q3_02
+seed: 20260903
 state: Telangana
 frame_csv: data/frame_telangana.csv
 
@@ -24,8 +24,8 @@ research_assistants:
   - RA4
 
 templates:
-  plain: out/tg2026q3_01/templates/plain_v3.txt
-  legal_salience: out/tg2026q3_01/templates/legal_salience_v3.txt
+  plain: out/tg2026q3_02/templates/plain_v3.txt
+  legal_salience: out/tg2026q3_02/templates/legal_salience_v3.txt
 
 languages:
   default: en

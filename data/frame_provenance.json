@@ -1,0 +1,16 @@
+{
+  "scraped_on": "2026-09-02",
+  "built_on": "2026-09-02",
+  "endpoint": "https://rti.telangana.gov.in/Homepage/Home/GetDepartments?term=&page=N",
+  "pages": 117,
+  "raw_rows": 3500,
+  "unique_offices": 3401,
+  "portal_reported_public_authorities": 3500,
+  "district_block_joined_from_legacy_file": 3317,
+  "frame_sha256": "9d22df8159cf527e96d81eab3ef710862620107b2ce107cb090ef4296a2e5218",
+  "notes": [
+    "names kept portal-verbatim after whitespace normalisation",
+    "raw pages contain duplicate registrations; deduped on normalised name",
+    "completeness verified: an independent term='a' sweep of the same endpoint added zero names beyond the empty-term paging"
+  ]
+}

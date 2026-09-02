@@ -24,8 +24,8 @@ import re
 from pathlib import Path
 
 # ---- frozen batch design -------------------------------------------------
-BATCH_ID = "tg2026q3_01"
-SEED = 20260902          # new batch, new seed; never reuse a seed
+BATCH_ID = "tg2026q3_02"
+SEED = 20260903          # new batch, new seed; never reuse a seed
 N = 250
 N_LEGAL = 75             # 30% legal salience
 N_PLAIN = 175            # 70% plain
@@ -178,7 +178,7 @@ def main():
         "cap_per_stratum": CAP_PER_STRATUM, "min_stratum_size": MIN_STRATUM_SIZE,
         "frame_csv": str(FRAME.relative_to(ROOT)), "frame_sha256": frame_sha,
         "frame_rows": len(rows), "strata": len(strata),
-        "source": "state_department_classified_FINAL.csv (Telangana rows)",
+        "source": "portal scrape 2026-09-02 via scripts/build_frame.py (see data/frame_provenance.json)",
         "templates": {"plain": "plain_v3.txt", "legal_salience": "legal_salience_v3.txt"},
     }
     with open(OUT / "batch_meta.json", "w", encoding="utf-8") as f:
