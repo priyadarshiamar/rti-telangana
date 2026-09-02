@@ -5,7 +5,7 @@ RTI applications to Telangana public authorities. This is the Telangana
 extension of the Tamil Nadu pipeline in
 [in-rolls/rti](https://github.com/in-rolls/rti) (branch
 `restructure-pipeline`), whose design it follows: a frozen frame, one seeded
-draw, blocked treatment assignment, balanced RA worklists, and a static
+draw, randomized treatment assignment, balanced RA worklists, and a static
 GitHub Pages viewer.
 
 **Dashboard:** https://priyadarshiamar.github.io/rti-telangana/
